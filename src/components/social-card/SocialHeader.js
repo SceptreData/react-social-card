@@ -1,47 +1,62 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 
-const circleStyle = {
-  width: "60px",
-  height: "60px",
-  marginLeft: ".25rem",
-  borderRadius: "50%",
-  background: "black",
-  color: "white",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  text-align: left;
+  h4 {
+    margin: 0;
+  }
+  p {
+    font-size: 0.8rem;
+    margin: 2px 0 0 6px;
+    font-weight: 300;
+  }
+`;
 
-const userInfoStyle = {
-  color: "black",
-  fontSize: "15px",
-  marginLeft: "5px"
-};
+const Circle = styled.div`
+  width: 50px;
+  height: 50px;
+  margin-left: 0.25rem;
+  border-radius: 50%;
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+`;
+
+const UserInfo = styled.div`
+  color: black;
+  font-size: 15px;
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+
+  .date-posted {
+    font-weight: 300;
+    font-size: 0.75rem;
+    margin-left: 10px;
+  }
+`;
 
 class SocialHeader extends Component {
   render() {
+    const { orgName, orgAbbr, user, datePosted, tagline } = this.props.org;
+
     return (
-      <header style={{ display: "flex", alignItems: "center" }}>
-        <div style={circleStyle} className="author-thumbnail">
-          {this.props.orgShortName}
-        </div>
-        <div className="user-info" style={userInfoStyle}>
+      <Header>
+        <Circle>{orgAbbr}</Circle>
+        <UserInfo>
           <h4>
-            {this.props.userName} @{this.props.orgLongName} -{" "}
-            {this.props.datePosted}
+            {user} @{orgName} -{" "}
+            <span className="date-posted">{datePosted}</span>
           </h4>
-          <p>{this.props.tagLine}</p>
-        </div>
-        <div
-          style={{
-            marginLeft: "auto",
-            fontSize: "12px",
-            color: "black"
-          }}
-        >
-          &#9660;
-        </div>
-      </header>
+          <p>{tagline}</p>
+        </UserInfo>
+      </Header>
     );
   }
 }
