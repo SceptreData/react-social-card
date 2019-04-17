@@ -19,12 +19,13 @@ class SocialCard extends Component {
   render() {
     return (
       // <div className="social-card" style={cardStyle}>
-      <Card>
-        <SocialHeader org={this.props.org} />
-        <SocialContent org={this.props.org} />
-        <SocialFooter />
-      </Card>
-      // </div>
+      <li>
+        <Card>
+          <SocialHeader org={this.props.org} />
+          <SocialContent org={this.props.org} />
+          <SocialFooter />
+        </Card>
+      </li>
     );
   }
 }

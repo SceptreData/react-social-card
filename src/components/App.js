@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import SocialCard from "./social-card/SocialCard";
-import { getFunName } from "../helpers";
+import { getRandomName, getBusinessName, rando } from "../helpers";
 
 const testOrg = {
   orgAbbr: "DFB",
@@ -15,11 +15,40 @@ const testOrg = {
 };
 
 class App extends Component {
+  state = {
+    posts: {}
+  };
+
+  loadSamplePosts = () => {
+    let samplePosts = {};
+    for (let i = 0; i < 10; i++) {
+      let org = {
+        orgAbbr: rando(["DFB", "ABC", "BFG"]),
+        orgName: getBusinessName(),
+        user: getRandomName(),
+        datePosted: Date.now(),
+        tagline: "lorem ipsum ipto facto",
+        content:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde amet voluptate eveniet perspiciatis architecto repellat maiores neque, debitis nesciunt tempore delenit",
+        userImg: "http://lorempixel.com/35/35/",
+        userUrl: "#"
+      };
+      samplePosts[org.orgName] = org;
+    }
+    this.setState({ posts: samplePosts });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>Social Cards</h1>
-        <SocialCard org={testOrg} />
+        <button onClick={this.loadSamplePosts}>Load sample users.</button>
+        <ul style={{ listStyle: "none" }}>
+          <SocialCard org={testOrg} />
+          {Object.keys(this.state.posts).map(key => (
+            <SocialCard key={key} org={this.state.posts[key]} />
+          ))}
+        </ul>
       </div>
     );
   }
